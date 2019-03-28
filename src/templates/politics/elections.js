@@ -21,6 +21,11 @@ let templates = {
     let data = parse(tmpl);
     r.templates.push(data);
     return '';
+  },
+  'election box turnout': (tmpl, r) => {
+    let data = parse(tmpl);
+    r.templates.push(data);
+    return '';
   }
 };
 //aliases

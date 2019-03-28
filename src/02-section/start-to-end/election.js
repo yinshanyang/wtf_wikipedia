@@ -12,12 +12,14 @@ const parseElection = function(wiki, section) {
     let start = data.templates.find((t) => t.template === 'election box begin') || {};
     let candidates = data.templates.filter((t) => t.template.match(/^election box candidate/));
     let summary = data.templates.find((t) => t.template === 'election box gain' || t.template === 'election box hold') || {};
+    let turnout = data.templates.find((t) => t.template === 'election box turnout');
     if (candidates.length > 0 || summary) {
       section.templates.push({
         template: 'election box',
         title: start.title,
         candidates: candidates,
-        summary: summary.data
+        summary: summary.data,
+        turnout: turnout
       });
     }
     //remove it all
