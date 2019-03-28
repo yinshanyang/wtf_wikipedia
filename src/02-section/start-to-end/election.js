@@ -9,8 +9,8 @@ const parseElection = function(wiki, section) {
     //put it through our full template parser..
     parseTemplates(tmpl, data, {});
     //okay, pull it apart into something sensible..
-    let start = data.templates.find((t) => t.template === 'election box') || {};
-    let candidates = data.templates.filter((t) => t.template === 'election box candidate');
+    let start = data.templates.find((t) => t.template === 'election box begin') || {};
+    let candidates = data.templates.filter((t) => t.template.match(/^election box candidate/));
     let summary = data.templates.find((t) => t.template === 'election box gain' || t.template === 'election box hold') || {};
     if (candidates.length > 0 || summary) {
       section.templates.push({

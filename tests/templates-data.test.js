@@ -141,7 +141,7 @@ test('weather', function(t) {
 });
 
 test('election', function(t) {
-  var str = `hello {{Election box begin |title=[[United Kingdom general election, 2005|General Election 2005]]: Strangford}}
+  var str = `{{Election box begin |title=[[United Kingdom general election, 2005|General Election 2005]]: Strangford}}
    {{Election box candidate
      |party      = Labour
      |candidate  = Tony Blair
@@ -167,7 +167,86 @@ test('election', function(t) {
   t.equal(doc.templates().length, 1, 'found one template');
   var tmpl = doc.templates(0) || {};
   t.equal(tmpl.template, 'election box', 'template name');
+  t.equal(tmpl.title, 'General Election 2005: Strangford', 'template title')
   t.equal(tmpl.candidates.length, 2, 'two candidates');
+  t.end();
+});
+
+test('election', function(t) {
+  var str = `{{Election box begin
+  |title=Australian federal election, 2016
+  }}
+  {{Election box candidate with party link
+  |candidate = [[Alan Tudge]]
+  |party = Liberal
+  |votes = 43,532
+  |percentage = 50.86
+  |change = −0.73
+  }}
+  {{Election box candidate with party link
+  |candidate = Paul Klisaris
+  |party = Labor
+  |votes = 26,593
+  |percentage = 31.07
+  |change = −1.56
+  }}
+  {{Election box candidate with party link
+  |candidate = Steve Raymond
+  |party = Greens
+  |votes = 7,186
+  |percentage = 8.40
+  |change = +2.52
+  }}
+  {{Election box candidate with party link
+  |candidate = Daniel Martin
+  |party = Family First
+  |votes = 2,762
+  |percentage = 3.23
+  |change = +0.46
+  }}
+  {{Election box candidate with party link
+  |candidate = Rosemary Lavin
+  |party = Animal Justice
+  |votes = 2,211
+  |percentage = 2.58
+  |change = +2.58
+  }}
+  {{Election box candidate with party link
+  |candidate = Daniel Huppert
+  |party = Independent
+  |votes = 2,104
+  |percentage = 2.46
+  |change = +2.46
+  }}
+  {{Election box candidate with party link
+  |candidate = Joel Moore
+  |party = Liberal Democrats
+  |votes = 1,198
+  |percentage = 1.40
+  |change = +1.40
+  }}
+  {{Election box formal
+  |votes = 85,586
+  |percentage = 96.04
+  |change = +0.57
+  }}
+  {{Election box informal
+  |votes = 3,525
+  |percentage = 3.96
+  |change = −0.57
+  }}
+  {{Election box turnout
+  |votes = 89,111
+  |percentage = 92.78
+  |change = −1.95
+  }}
+  {{Election box end}}`;
+  var doc = wtf(str);
+  t.equal(doc.templates().length, 1, 'found one template');
+  var tmpl = doc.templates(0) || {};
+  t.equal(tmpl.template, 'election box', 'template name');
+  t.equal(tmpl.title, 'Australian federal election, 2016', 'template title')
+  t.equal(tmpl.candidates.length, 7, 'seven candidates');
   t.end();
 });
 
